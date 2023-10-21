@@ -6,3 +6,5 @@ airflow db init
 cp /inits/airflow.cfg /root/airflow/airflow.cfg
 airflow db init
 airflow users create --username Admin --firstname admin --lastname test --role Admin --email root@root.local
+airflow webserver -p 8080 -D
+airflow scheduler -D

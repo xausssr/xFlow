@@ -17,6 +17,7 @@ RUN pip3 install -r /requerments.txt
 COPY inits /inits
 COPY init_airflow.sh /init_airflow.sh
 
+EXPOSE 8080
 
 ENTRYPOINT ["tail"]
 CMD ["-f","/dev/null"]
