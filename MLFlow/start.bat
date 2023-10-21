@@ -1,0 +1,1 @@
+docker run -it --rm -p 5000:5000 --name mlflow -d -v e:\ML-OPS\xFlow\artefacts:/mlflow ghcr.io/mlflow/mlflow:v2.0.1
