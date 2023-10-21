@@ -1,2 +1,6 @@
 psycopg2
 apache-airflow
+pandas
+tqdm
+transformers
+xgboost
