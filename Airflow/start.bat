@@ -1,0 +1,1 @@
+docker run --gpus all -it --rm  -d -v e:\ClearML\scripts:/scripts service/clearml-agent
