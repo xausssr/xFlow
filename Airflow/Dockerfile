@@ -6,8 +6,8 @@ RUN apt update -y
 RUN apt install software-properties-common -y
 RUN apt install python-setuptools -y
 RUN apt install libpq-dev -y
-RUN DEBIAN_FRONTEND=noninteractive apt install postgresql -y
-RUN export AIRFLOW_HOME=~/airflow
+#RUN DEBIAN_FRONTEND=noninteractive apt install postgresql -y
+RUN export AIRFLOW_HOME="/root/airflow/"
 
 
 COPY ./requerments.txt /requerments.txt
