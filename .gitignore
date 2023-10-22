@@ -1,1 +1,4 @@
 .ipynb_checkpoints
+main_folders
+scripts/airflow/data
+scripts/airflow/model

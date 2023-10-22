@@ -1,1 +1,1 @@
-docker run --gpus all -it --rm -p 8080:8080 -d -v e:\ML-OPS\xFlow\scripts:/scripts service/airflow 
+docker run --gpus all -it --rm -p 8080:8080 -d -v e:\ML-OPS\xFlow\scripts:/scripts -v e:\ML-OPS\xFlow\main_folders\Airflow:/root/airflow service/airflow
