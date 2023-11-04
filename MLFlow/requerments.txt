@@ -1,0 +1,6 @@
+psycopg2
+mlflow
+pandas
+tqdm
+transformers
+xgboost

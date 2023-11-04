@@ -2,3 +2,6 @@
 main_folders
 scripts/airflow/data
 scripts/airflow/model
+scripts/mlflow/model
+scripts/mlflow/data
+.pytest_cache

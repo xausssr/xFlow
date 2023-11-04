@@ -48,27 +48,33 @@ docker run --gpus all -it --rm -p 8080:8080 -d -v e:\ML-OPS\xFlow\scripts:/scrip
 
 ## MLFlow
 
-**Тут попроще, контейнер уже сконфигурирован**. Для запуска в файле `\xFlow\MLFlow\start.bat` поменять папку для маппинга скриптов внутрь контейнера, в моем случае: `e:\ML-OPS\xFlow\artefacts`:
+Сборка контейнера:
 
 ```bash
-docker run --gpus all -it --rm -p 8080:8080 -d -v e:\ML-OPS\xFlow\scripts:/scripts service/airflow 
+cd \xFlow\MLFlow
+docker build --tag service/mlflow ./ 
 ```
 
-После выполнения ввести в консоль для получения Tracking URI (если планируется все разворачивать в контейнерах):
+Для запуска контейнера используется скрипт `\xFlow\MLFlow\start.bat`. При необходимости - заменить маппинг папки с артефактами, папку скриптов и маппинг портов
 
 ```bash
-docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mlflow
+docker run -it --rm -p 5000:5000 --name mlflow -d -v e:\ML-OPS\xFlow\artefacts:/artifacts -v e:\ML-OPS\xFlow\scripts\mlflow:/scripts service/mlflow
 ```
 
-Маппинг папок используется для сохранения артефактов mlflow. После создания контейнера внутри него выполнить:
+**!!ПЕРЕД ЗАПУСКОМ СОЗДАТЬ ПАПКИ, КОТОРЫЕ МОНТИРУЮТСЯ!!**
+
+Порты, при желании тоже можно поменять.
+После запуска (`.\start.bat`) подключиться к контейнеру (например через `Docker Desctop`) и инициализировать MLFlow:
 
 ```bash
-mlflow server --default-artifact-root file:/artefacts -h 0.0.0.0 -p 5000
+/init_mlflowsh
 ```
+
+Будет запущен сервер (проверить: http:/127.0.0.1:5000, порт по умолчанию `5000`)
 
 ## Задача
 
-> Так как цель практики MLops задача очень далека от практики. Если делать хорошо, то в срок точно ничего не сдать. Возможно, если будет время, можно аналитику покрутить и до ума довести. Может даже одностраничник сделать
+> Так как цель практики MLops - задача очень далека от практики. Если делать хорошо, то в срок точно ничего не сдать. Возможно, если будет время, можно аналитику покрутить и до ума довести. Может даже одностраничник сделать
 
 * > Источник данных: [hh](https://hh.ru)
 * > Домены ML: nlp, classic ML
@@ -87,3 +93,22 @@ mlflow server --default-artifact-root file:/artefacts -h 0.0.0.0 -p 5000
 В `reseach\reseach.ipynb` содержится краткий ресеч перед построением пайплайна.
 
 >Airflow - 1 задача, MLflow - 2я
+
+Результат Airflow:
+
+![Результат Airflow](assets/airflow_done.png)
+
+**MLFlow**
+
+Я разнес airflow и mlflow так как контейнеры достаточно прожорливые.
+
+Для работы последовательно запустить скрипт в докере:
+
+```bash
+cd /scripts
+./run_experiment.sh
+```
+
+Результат MLFlow:
+
+![Результат MLFlow](assets/mlflow_done.png)
